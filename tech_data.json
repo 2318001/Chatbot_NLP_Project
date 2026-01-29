@@ -1,0 +1,56 @@
+{
+  "ai_news": [
+    {
+      "title": "GPT-4 Turbo Released",
+      "content": "OpenAI announced GPT-4 Turbo with 128K context window and improved function calling",
+      "category": "ai",
+      "level": "intermediate",
+      "significance": "Enables processing of much longer documents and complex multi-step tasks",
+      "resources": ["OpenAI Blog", "API Documentation", "Usage Examples"]
+    },
+    {
+      "title": "Meta's Code Llama",
+      "content": "Meta released Code Llama, an AI model specialized in code generation and debugging",
+      "category": "ai",
+      "level": "intermediate",
+      "significance": "Helps developers write better code faster and understand complex codebases",
+      "resources": ["GitHub Repository", "Research Paper", "Tutorials"]
+    }
+  ],
+  "web_news": [
+    {
+      "title": "React 19 Beta",
+      "content": "React team announced React 19 beta with new features like Actions and Directives",
+      "category": "web",
+      "level": "intermediate",
+      "significance": "Simplifies data handling and improves performance in React applications",
+      "resources": ["React Blog", "Migration Guide", "Demo Projects"]
+    }
+  ],
+  "learning_paths": {
+    "beginner": {
+      "ai": [
+        "AI For Everyone - Coursera (Free)",
+        "Elements of AI - University of Helsinki",
+        "Machine Learning Crash Course - Google"
+      ],
+      "web": [
+        "HTML/CSS/JavaScript - freeCodeCamp",
+        "Web Development Bootcamp - Udemy",
+        "Frontend Developer Path - Scrimba"
+      ]
+    },
+    "intermediate": {
+      "ai": [
+        "Deep Learning Specialization - deeplearning.ai",
+        "Fast.ai Practical Deep Learning",
+        "Stanford CS229 Lectures (YouTube)"
+      ],
+      "web": [
+        "Full Stack Open - University of Helsinki",
+        "React Advanced Concepts",
+        "Node.js Master Class"
+      ]
+    }
+  }
+}
