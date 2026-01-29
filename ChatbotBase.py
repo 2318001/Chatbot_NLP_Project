@@ -1,7 +1,7 @@
 """
 ChatbotBase.py
 Base class template for the chatbot.
-DO NOT override respond() in child classes.
+
 """
 
 class ChatbotBase:

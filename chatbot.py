@@ -101,14 +101,14 @@ class TechBot(ChatbotBase):
 
         self._news_cache: Dict[str, Tuple[float, List[Dict[str, Any]]]] = {}
 
-        print(f"✅ {self.name} initialized successfully!")
+        print(f"{self.name} initialized successfully!")
         print("   - General tech Q&A (default)")
         print("   - UPDATE MODE for news/updates queries")
         print("   - Profile + progress tracking enabled")
         print(f"   - Model: {self.llm_name if getattr(self,'llm_ready', False) else 'NOT LOADED'}\n")
 
     # =========================
-    # BUILT-IN TECH KNOWLEDGE (NEW)
+    # BUILT-IN TECH KNOWLEDGE 
     # =========================
     def _load_tech_knowledge(self) -> Dict[str, str]:
         """
@@ -116,7 +116,7 @@ class TechBot(ChatbotBase):
         This ensures the bot can answer even when LLM produces poor output.
         """
         return {
-            # OpenAI / ChatGPT
+            
             "chatgpt": """**ChatGPT** is an AI chatbot developed by OpenAI, launched in November 2022.
 
 **Key Features:**
@@ -226,10 +226,10 @@ class TechBot(ChatbotBase):
 4. **Generate**: LLM generates answer using the context
 
 **Benefits:**
-- ✅ Reduces hallucinations (grounded in real documents)
-- ✅ Provides citations and sources
-- ✅ Works with private/updated data
-- ✅ No need to retrain the model
+-  Reduces hallucinations (grounded in real documents)
+- Provides citations and sources
+- Works with private/updated data
+-  No need to retrain the model
 
 **Common RAG Stack:**
 - **Embeddings**: OpenAI, Cohere, or open-source models
@@ -328,10 +328,10 @@ class TechBot(ChatbotBase):
 - **ConfigMap/Secret**: Store configuration and sensitive data
 
 **Why Use Kubernetes:**
-- ✅ Automatic scaling based on load
-- ✅ Self-healing (restarts failed containers)
-- ✅ Rolling updates with zero downtime
-- ✅ Works across cloud providers
+-  Automatic scaling based on load
+-  Self-healing (restarts failed containers)
+-  Rolling updates with zero downtime
+-  Works across cloud providers
 
 **Managed Kubernetes:**
 - EKS (AWS), GKE (Google), AKS (Azure)""",
@@ -359,10 +359,10 @@ docker-compose up           # Start multi-container app
 ```
 
 **Benefits:**
-- ✅ "Works on my machine" solved
-- ✅ Fast startup (seconds vs minutes for VMs)
-- ✅ Consistent dev/prod environments
-- ✅ Easy scaling and deployment""",
+- "Works on my machine" solved
+- Fast startup (seconds vs minutes for VMs)
+-  Consistent dev/prod environments
+-  Easy scaling and deployment""",
 
             # Programming
             "python": """**Python** is a popular, beginner-friendly programming language.
@@ -528,11 +528,11 @@ const { name, age } = user;
 - **Zero-day**: Exploits unknown vulnerabilities
 
 **Security Best Practices:**
-- ✅ Use strong, unique passwords
-- ✅ Enable two-factor authentication (2FA)
-- ✅ Keep software updated
-- ✅ Be cautious with links and attachments
-- ✅ Regular backups
+-  Use strong, unique passwords
+-  Enable two-factor authentication (2FA)
+-  Keep software updated
+-  Be cautious with links and attachments
+-  Regular backups
 
 **Security Careers:**
 - Security Analyst
@@ -859,7 +859,7 @@ DELETE /api/users/1    # Delete user 1
         )
         self.conn.commit()
         self.context["current_user"] = user_id
-        return f"✅ Profile updated for {user_id}"
+        return f" Profile updated for {user_id}"
 
     # =========================
     # PROGRESS (run.py depends on these)
@@ -874,15 +874,15 @@ DELETE /api/users/1    # Delete user 1
     def mark_resource_done(self, user_id: str, resource_contains: str) -> str:
         k = (resource_contains or "").strip().lower()
         if not k:
-            return "❌ Usage: done <part of resource name>"
+            return " Usage: done <part of resource name>"
         self.cursor.execute(
             "UPDATE progress SET status='done' WHERE user_id=? AND LOWER(resource) LIKE ?",
             (user_id, f"%{k}%"),
         )
         self.conn.commit()
         if self.cursor.rowcount == 0:
-            return "⚠️ I couldn't find a suggested resource matching that."
-        return f"✅ Marked {self.cursor.rowcount} resource(s) as done."
+            return " I couldn't find a suggested resource matching that."
+        return f"Marked {self.cursor.rowcount} resource(s) as done."
 
     def get_progress_report(self, user_id: str) -> str:
         self.cursor.execute(
@@ -899,7 +899,7 @@ DELETE /api/users/1    # Delete user 1
         if not rows:
             return "No progress tracked yet. Ask for resources and then mark them with: done <keyword>"
 
-        lines = ["📈 Progress (latest 20):"]
+        lines = [" Progress (latest 20):"]
         for topic, resource, status, ts in rows:
             lines.append(f"- [{status}] ({topic}) {resource} — {ts}")
         return "\n".join(lines)
@@ -1078,17 +1078,17 @@ Bullets:""".strip()
     def _init_llm(self, base_model: str, hf_cache_dir: Optional[str]):
         self.llm_name = base_model
         try:
-            print("🔄 Loading model:", base_model)
+            print("Loading model:", base_model)
             self.tokenizer = AutoTokenizer.from_pretrained(base_model, cache_dir=hf_cache_dir)
             self.model = AutoModelForSeq2SeqLM.from_pretrained(base_model, cache_dir=hf_cache_dir)
             self.model.eval()
             self.llm_ready = True
-            print("✅ Model loaded.")
+            print("Model loaded.")
         except Exception as e:
             self.llm_ready = False
             self.tokenizer = None
             self.model = None
-            print("⚠️ Could not load model:", e)
+            print(" Could not load model:", e)
 
     def _llm_generate(self, prompt: str, max_new_tokens: int = 260, mode: str = "safe") -> str:
         if not getattr(self, "llm_ready", False):
@@ -1462,7 +1462,7 @@ What would you like to learn about?"""
 
     def _answer_updates(self, question: str, items: List[Dict[str, Any]], wants_sources: bool, keywords: List[str] = None) -> str:
         if not items:
-            return "⚠️ I couldn't fetch live updates (RSS blocked/no internet). Try asking a specific question like 'What is ChatGPT?' instead."
+            return " I couldn't fetch live updates (RSS blocked/no internet). Try asking a specific question like 'What is ChatGPT?' instead."
 
         prompt = self._prompt_updates(question, items, wants_sources)
         out = self._llm_generate(prompt, max_new_tokens=360, mode="safe")
@@ -1476,7 +1476,7 @@ What would you like to learn about?"""
 
         # fallback: simple list with better formatting
         topic = self._extract_topic(question) or "tech"
-        lines = [f"📰 **Recent {topic.title()} News:**\n"]
+        lines = [f" **Recent {topic.title()} News:**\n"]
         for it in items[:5]:
             title = it.get('title', '')
             source = it.get('source', '')
@@ -1487,7 +1487,7 @@ What would you like to learn about?"""
                 line += f"\n  → {it['link']}"
             lines.append(line)
         
-        lines.append("\n💡 *For detailed explanations, try: 'What is [topic]?' or 'Explain [concept]'*")
+        lines.append("\n *For detailed explanations, try: 'What is [topic]?' or 'Explain [concept]'*")
         return "\n".join(lines)
 
     # =========================
@@ -1503,13 +1503,13 @@ What would you like to learn about?"""
         t = intent.get("type", "answer")
 
         if t == "greeting":
-            return {"content": [f"👋 Hey! I'm {self.name}. Ask me any tech question - I can explain concepts like ChatGPT, AI, cloud computing, and more!"], "resources": []}
+            return {"content": [f" Hey! I'm {self.name}. Ask me any tech question - I can explain concepts like ChatGPT, AI, cloud computing, and more!"], "resources": []}
 
         if t == "smalltalk":
-            return {"content": ["I'm good 😄 What tech topic would you like to explore? I can explain concepts, share news, or help you learn!"], "resources": []}
+            return {"content": ["I'm good  What tech topic would you like to explore? I can explain concepts, share news, or help you learn!"], "resources": []}
 
         if t == "farewell":
-            return {"content": ["👋 Goodbye! Keep learning!"], "resources": []}
+            return {"content": ["Goodbye! Keep learning!"], "resources": []}
 
         wants_sources = bool(intent.get("wants_sources", False))
         wants_resources = bool(intent.get("wants_resources", False))
@@ -1532,11 +1532,11 @@ What would you like to learn about?"""
             res = self._get_personalized_resources(profile, keywords, topic_hint)
             if res:
                 sections.append("")
-                sections.append("📚 **Learning Resources:**")
+                sections.append(" **Learning Resources:**")
                 for r in res[:5]:
                     sections.append(f"• {r}")
                     self.track_resource(user_id, topic=topic_hint[:40], resource=r, status="suggested")
-                sections.append("\n💡 *Mark done with: `done <keyword>`*")
+                sections.append("\n *Mark done with: `done <keyword>`*")
 
         self.context["last_topic"] = raw
         return {"content": [s for s in sections if s.strip() or s == ""], "resources": []}
@@ -1555,6 +1555,6 @@ What would you like to learn about?"""
             if user_text and response:
                 self._save_turn(user_id, user_text, response)
         except Exception as e:
-            print("⚠️ Save turn failed:", e)
+            print(" Save turn failed:", e)
 
         return response

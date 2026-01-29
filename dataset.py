@@ -55,8 +55,8 @@ def main():
         for ex in examples:
             f.write(json.dumps(ex, ensure_ascii=False) + "\n")
 
-    print(f"✅ Dataset created: {path}  (examples: {len(examples)})")
-    print("Tip: add many more examples (200–1000+) for best fine-tuning.")
+    print(f"Dataset created: {path}  (examples: {len(examples)})")
+    print(" more examples (200–1000+) for best fine-tuning.")
 
 if __name__ == "__main__":
     main()

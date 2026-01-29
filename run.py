@@ -9,16 +9,16 @@ from chatbot import TechBot
 
 def main():
     print("\n" + "=" * 60)
-    print("🤖 TECHBOT PRO - Advanced Tech Information Assistant")
+    print("TECHBOT PRO - Advanced Tech Information Assistant")
     print("=" * 60)
 
     try:
         bot = TechBot(name="TechBot Pro")
     except Exception as e:
-        print(f"❌ Failed to initialize bot: {e}")
+        print(f" Failed to initialize bot: {e}")
         return
 
-    print("\n💡 Tips:")
+    print("\n Tips:")
     print("  • Ask any tech question: 'What is ChatGPT?', 'Explain RAG'")
     print("  • Get news: 'What's new in AI?', 'Latest OpenAI news'")
     print("  • Add 'with links' if you want sources")
@@ -35,7 +35,7 @@ def main():
 
     # Offer profile setup for new user
     if profile["knowledge_level"] == "beginner" and not profile["interests"]:
-        print(f"\n👋 Welcome, {user_id}!")
+        print(f"\n Welcome, {user_id}!")
         setup = input("Would you like to set up your profile? (y/n): ").lower().strip()
 
         if setup == "y":
@@ -49,7 +49,7 @@ def main():
                 interests=[i.strip() for i in interests.split(",") if i.strip()],
                 goals=[goals] if goals else [],
             )
-            print("✅ Profile created!")
+            print(" Profile created!")
 
     print(f"\nHello {user_id}! Ask me about **any tech topic**.\n")
     print("Examples: 'What is ChatGPT?', 'Explain AI agents', 'What's new with OpenAI?'\n")
@@ -63,19 +63,19 @@ def main():
             cmd = user_input.lower().strip()
 
             if cmd == "quit":
-                print("\n👋 Goodbye! Keep learning!")
+                print("\n Goodbye! Keep learning!")
                 break
 
             if cmd == "help":
                 print("\n" + "=" * 50)
-                print("📋 **Commands:**")
+                print("**Commands:**")
                 print("  help        - show this help")
                 print("  profile     - show your profile")
                 print("  progress    - show your learning progress")
                 print("  done <kw>   - mark suggested resources done")
                 print("  quit        - exit")
                 print("")
-                print("💬 **Question Examples:**")
+                print(" **Question Examples:**")
                 print("  what is ChatGPT?")
                 print("  explain RAG")
                 print("  tell me about OpenAI")
@@ -84,7 +84,7 @@ def main():
                 print("  how does GPT work?")
                 print("  what are AI agents?")
                 print("")
-                print("📚 **Get Resources:**")
+                print(" **Get Resources:**")
                 print("  learn about AI")
                 print("  python resources for beginners")
                 print("=" * 50)
@@ -115,10 +115,10 @@ def main():
             print(f"\n{bot.name}: {response}\n")
 
         except KeyboardInterrupt:
-            print("\n\n👋 Goodbye!")
+            print("\n\n Goodbye!")
             break
         except Exception as e:
-            print(f"\n⚠️ Error: {e}")
+            print(f"\n Error: {e}")
             print("Please try rephrasing your question.\n")
 
 

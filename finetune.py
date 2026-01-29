@@ -13,9 +13,9 @@ from peft import LoraConfig, get_peft_model, TaskType
 # -----------------------------
 # CONFIG
 # -----------------------------
-BASE_MODEL = "google/flan-t5-small"
+BASE_MODEL = "google/flan-t5-large"
 DATA_PATH = "data/train.jsonl"
-OUT_DIR = "models/techbot-flan-t5-small-lora"
+OUT_DIR = "models/techbot-flan-t5-large-lora"
 
 MAX_SOURCE_LEN = 256
 MAX_TARGET_LEN = 256
@@ -27,10 +27,10 @@ def main():
     os.makedirs("models", exist_ok=True)
     os.makedirs(OUT_DIR, exist_ok=True)
 
-    print("🔄 Loading dataset...")
+    print(" Loading dataset...")
     ds = load_dataset("json", data_files=DATA_PATH, split="train")
 
-    print("🔄 Loading tokenizer/model (CPU)...")
+    print("Loading tokenizer/model (CPU)...")
     tokenizer = AutoTokenizer.from_pretrained(BASE_MODEL)
     model = AutoModelForSeq2SeqLM.from_pretrained(BASE_MODEL)
 
@@ -71,7 +71,7 @@ def main():
         model_inputs["labels"] = labels
         return model_inputs
 
-    print("🔄 Tokenizing...")
+    print("Tokenizing...")
     tokenized = ds.map(tokenize, batched=True, remove_columns=ds.column_names)
 
     collator = DataCollatorForSeq2Seq(tokenizer=tokenizer, model=model)
@@ -98,14 +98,14 @@ def main():
         data_collator=collator,
     )
 
-    print("🚀 Training...")
+    print(" Training...")
     trainer.train()
 
-    print("💾 Saving adapter + tokenizer...")
+    print(" Saving adapter + tokenizer...")
     model.save_pretrained(OUT_DIR)
     tokenizer.save_pretrained(OUT_DIR)
 
-    print(f"✅ Done. Saved to: {OUT_DIR}")
+    print(f" Done. Saved to: {OUT_DIR}")
 
 if __name__ == "__main__":
     main()
