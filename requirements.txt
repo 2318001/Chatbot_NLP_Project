@@ -1,7 +1,0 @@
-requests
-feedparser
-torch
-transformers>=4.40.0
- datasets
- peft
- accelerate
